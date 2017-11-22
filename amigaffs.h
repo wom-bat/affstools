@@ -21,6 +21,7 @@
 
 #ifndef AMIGAFFS_H
 #define AMIGAFFS_H
+#include <stdint.h>
 
 #define AFFS_BLOCKSIZE_MIN	512
 #define AFFS_BLOCKSHIFT_MIN	9
@@ -252,15 +253,15 @@ extern void affs_error(char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 
 
 #define AFFS_ROOT_HEAD(buf)	((struct affs_root_head *)buf)
-#define AFFS_ROOT_TAIL(buf)	((struct affs_root_tail *)((u_int)buf+info.blocksize-sizeof(struct affs_root_tail)))
+#define AFFS_ROOT_TAIL(buf)	((struct affs_root_tail *)((uintptr_t)buf+info.blocksize-sizeof(struct affs_root_tail)))
 
 #define AFFS_DIR_HEAD(buf)	((struct affs_dir_head *)buf)
-#define AFFS_DIR_TAIL(buf)	((struct affs_dir_tail *)((u_int)buf+info.blocksize-sizeof(struct affs_dir_tail)))
+#define AFFS_DIR_TAIL(buf)	((struct affs_dir_tail *)((uintptr_t)buf+info.blocksize-sizeof(struct affs_dir_tail)))
 
 #define AFFS_DCACHE_HEAD(buf)	((struct affs_dcache_head *)buf)
 
 #define AFFS_FILE_HEAD(buf)	((struct affs_file_head *)buf)
-#define AFFS_FILE_TAIL(buf)	((struct affs_file_tail *)((u_int)buf+info.blocksize-sizeof(struct affs_file_tail)))
+#define AFFS_FILE_TAIL(buf)	((struct affs_file_tail *)((uintptr_t)buf+info.blocksize-sizeof(struct affs_file_tail)))
 
 
 #define AFFS_HASHTABLESIZE	((info.blocksize/4)-56)
@@ -268,7 +269,7 @@ extern void affs_error(char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 
 
 #define AFFS_PTYPE(buf)		(*(u_int *)buf)
-#define AFFS_STYPE(buf)		(*(u_int *)((u_int)buf+info.blocksize-4))
+#define AFFS_STYPE(buf)		(*(u_int *)((uintptr_t)buf+info.blocksize-4))
 
 
 #define FS_OFS		0x444F5300

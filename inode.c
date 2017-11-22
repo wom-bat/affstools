@@ -284,7 +284,7 @@ void affs_print_link(u_char *buf)
 		affs_print(1, "<SOFTLINK> ");
 		break;
 	default:
-		affs_print(1, "     <???> ");
+		affs_print(1, "     <?\?\?> ");
 		break;
 	}
 	time = (be32_to_cpu(tail->dir_change.days) * (24 * 60 * 60)) +
