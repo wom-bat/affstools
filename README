@@ -1,0 +1,24 @@
+This is the first public test release of affstools. It offers only very limited
+functionality and is mainly intended to help the affs fs debugging. So far the
+package includes only affsck and mkaffs:
+
+affsck: currently only checks filesystem consistence and will only writeback
+something if asked to do so. But there is also a readonly switch (-n), so no
+harm should be possible. The only repair functionality affsck has is to write
+an updated bitmap and even that is only done, if the old one was intact and
+can be safely overwritten. You can increase verbosity twice (with -vv) so most
+of the file system structure is dumped and can be used to find possible
+problems.
+
+mkaffs: should work mostly as expected, although the dircache entry isn't
+generated yet and a trashcan option might be usefull. mkaffs (and affsck)
+support different block sizes than 512, amiga os doesn't :-) (at least not in
+the small test I did...).
+
+Compiling the package should be no problem, just "./configure; make" should be
+enough. No documentation at this point, but there is "--help" option.
+
+Anyway, you can send all bug reports, feature request and so on to
+zippel@fh-brandenburg.de, but please don't expect that I implement more
+advanced features immediately, so I would be more thankful about patches. :-)
+
