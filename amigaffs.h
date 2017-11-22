@@ -268,8 +268,8 @@ extern void affs_error(char *fmt, ...) __attribute__ ((format (printf, 1, 2)));
 #define AFFS_BLOCKTABLESIZE	((info.blocksize/4)-56)
 
 
-#define AFFS_PTYPE(buf)		(*(u_int *)buf)
-#define AFFS_STYPE(buf)		(*(u_int *)((uintptr_t)buf+info.blocksize-4))
+#define AFFS_PTYPE(buf)		(*(u32 *)buf)
+#define AFFS_STYPE(buf)		(*(u32 *)((uintptr_t)buf+info.blocksize-4))
 
 
 #define FS_OFS		0x444F5300
