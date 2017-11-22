@@ -340,10 +340,10 @@ int affs_create_bitmap(void)
 	affs_print(2, "alloc ext bitmap at %d\n", ext);
 	tail->bitmap_ext = cpu_to_be32(ext);
 
-	while (1) {
+        blocks = (info.blocksize - 4) / 4;
+	while (bitmap_blocks) {
 		memset(extmap, 0, info.blocksize);
 
-		blocks = (info.blocksize - 4) / 4;
 		if (bitmap_blocks < blocks)
 			blocks = bitmap_blocks;
 		for (i = 0; i < blocks; ++i) {
@@ -352,13 +352,15 @@ int affs_create_bitmap(void)
 			extmap[i] = cpu_to_be32(new);
 		}
 
+                bitmap_blocks -= blocks;
+                if (bitmap_blocks != 0) {
+                    new = affs_alloc_new_block();
+                    affs_print(2, "alloc ext bitmap at %d\n", new);
+                    extmap[i] = cpu_to_be32(new);
+                }
 		affs_bwrite(extmap, ext);
-		if (bitmap_blocks <= blocks)
-			break;
-		ext = affs_alloc_new_block();
-		affs_print(2, "alloc ext bitmap at %d\n", ext);
-		extmap[i] = cpu_to_be32(ext);
-	}
+                ext = new;
+        }
 
 	return 0;
 }
