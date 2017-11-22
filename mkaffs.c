@@ -40,7 +40,7 @@ char affs_prog[] = "mkaffs";
 
 static error_t parse_opt(int key, char *arg, struct argp_state *state);
 
-const char *argp_program_version = "affsck " VERSION;
+const char *argp_program_version = "mkaffs " VERSION;
 
 static char args_doc[] = "devicefile name";
 
@@ -195,7 +195,6 @@ int main(int argc, char **argv)
 	printf("reserved blocks: %d\n", info.reserved);
 	printf("rootblock: %d\n", info.root);
 
-	affs_init_root();
 	affs_create_bitmap();
 	affs_write_bitmap();
 	affs_write_root();
